@@ -17,12 +17,17 @@ var homeButton = document.querySelector('.home-button')
 var saveCoverButton = document.querySelector('.save-cover-button')
 var viewSavedButton = document.querySelector('.view-saved-button')
 
-var formView = document.querySelector('.form-view');
-var homeView = document.querySelector('.home-view');
+var formView = document.querySelector('.form-view')
+var homeView = document.querySelector('.home-view')
 var savedView = document.querySelector('.saved-view')
 
 //iteration 2 variables 
 
+var coverInput = document.querySelector('.user-cover');
+var titleInput = document.querySelector('.user-title');
+var descriptor1Input = document.querySelector('.user-desc1');
+var descriptor2Input = document.querySelector('.user-desc2');
+var makeMyBookButton = document.querySelector('.create-new-book-button')
 
 
 // We've provided a few variables below
@@ -44,6 +49,11 @@ homeButton.addEventListener('click', reactHomeButton)
 viewSavedButton.addEventListener('click', reactViewSaved)
 
 //iteration 2 event listeners
+
+makeMyBookButton.addEventListener('click', createNewBook);
+// makeMyBookButton.addEventListener('click', personalCover)
+
+// iteration 3 event listeners
 
 // Create your event handlers and other functions here 👇
 
@@ -76,6 +86,7 @@ function reactMakeNew(){
   coverButton.classList.add('hidden');
   saveCoverButton.classList.add('hidden');
   homeButton.classList.remove('hidden')
+  viewSavedButton.classList.remove('hidden')
 }
 
 function reactHomeButton(){
@@ -84,17 +95,38 @@ function reactHomeButton(){
   coverButton.classList.remove('hidden');
   saveCoverButton.classList.remove('hidden');
   homeButton.classList.add('hidden');
+  viewSavedButton.classList.remove('hidden')
 }
 
 function reactViewSaved(){
   homeView.classList.add('hidden');
+  formView.classList.add('hidden')
   savedView.classList.remove('hidden');
   coverButton.classList.add('hidden');
   saveCoverButton.classList.add('hidden');
   homeButton.classList.remove('hidden');
+  viewSavedButton.classList.remove('hidden')
 }
 
 //iteration 2 functions 
+
+function createNewBook(event) {
+  
+  coverImage.src = coverInput.value;
+  coverTitle.innerText = titleInput.value;
+  tag1.innerText = descriptor1Input.value
+  tag2.innerText = descriptor2Input.value
+  var newCover = createCover(coverImage, coverTitle, tag1, tag2);
+  
+  covers.push(coverInput.value)
+  titles.push(titleInput.value)
+  descriptors.push(descriptor1Input.value, descriptor2Input.value)
+  // savedCovers.push(newCover);
+
+  reactHomeButton();
+  createCover(newCover)
+  event.preventDefault();
+}
 
 
 
