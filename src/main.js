@@ -141,13 +141,16 @@ function viewSavedCovers(){
   savedView.innerHTML = '';
 
   for (var i = 0; i < savedCovers.length; i++) {
-    var cover = savedCovers[i];
+    (function (cover) {
     var coverElement = document.createElement('div');
     coverElement.classList.add('mini-cover');
     
     var img = document.createElement('img');
     img.classList.add('mini-cover');
     img.src = cover.coverImg; 
+    img.addEventListener('dblclick', function () { //added event listener to the function to react on double click
+      deleteSavedCover(cover.id) //pass in the id of the chosen cover so it will be the one to be deleted
+    })
     coverElement.appendChild(img);
     
     var title = document.createElement('h2');
@@ -169,6 +172,23 @@ function viewSavedCovers(){
     tagline2.innerText = cover.tagline2;
 
     savedView.appendChild(coverElement);
+    })(savedCovers[i])
+  }
+}
+
+// iteration 4 functions
+function deleteSavedCover(coverId) {
+// use findIndex to find index of the cover to be deleted
+//assign that cover.id to the variable of coverToDelete
+  var coverToDelete = savedCovers.findIndex(function (cover) {
+    return cover.id === coverId
+  })
+
+  if (coverToDelete !== -1) {
+    //remove the cover from the savedCovers array
+    savedCovers.splice(coverToDelete, 1)
+    //return the updated saved covers view
+    viewSavedCovers();
   }
 }
 
