@@ -30,8 +30,9 @@ var descriptor2Input = document.querySelector('.user-desc2');
 var makeMyBookButton = document.querySelector('.create-new-book-button');
 
 
+
 // We've provided a few variables below
-var savedCovers = []
+var savedCovers = [];
   
 var currentCover;
 
@@ -55,6 +56,8 @@ makeMyBookButton.addEventListener('click', createNewBook);
 
 saveCoverButton.addEventListener('click', saveCurrentCover);
 viewSavedButton.addEventListener('click', viewSavedCovers);
+
+// iteration 4 event listeners in iteration 3 function 
 
 // Create your event handlers and other functions here 👇
 
@@ -88,6 +91,7 @@ function reactMakeNew(){
   saveCoverButton.classList.add('hidden');
   homeButton.classList.remove('hidden');
   viewSavedButton.classList.remove('hidden');
+  savedView.classList.add('hidden');
 }
 
 function reactHomeButton(){
@@ -141,6 +145,9 @@ function viewSavedCovers(){
     var img = document.createElement('img');
     img.classList.add('mini-cover');
     img.src = cover.coverImg; 
+    img.addEventListener('dblclick', function () { 
+      deleteSavedCover(cover.id) 
+    });
     coverElement.appendChild(img);
     
     var title = document.createElement('h2');
@@ -170,6 +177,18 @@ function saveCurrentCover() {
     savedCovers.push(currentCover);
   }
 }
+
+// iteration 4 functions
+
+function deleteSavedCover(coverId) {
+    var coverToDelete = savedCovers.findIndex(function (cover) {
+      return cover.id === coverId
+    });
+    if (coverToDelete !== -1) {
+      savedCovers.splice(coverToDelete, 1);
+      viewSavedCovers();
+    }
+  }
 
 // We've provided two functions to get you started
 function getRandomIndex(array) {
